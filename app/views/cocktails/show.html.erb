@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>
+        <strong>Name:</strong>
+      </th>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= @cocktail.name %></td>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="button-div">
+  <%= link_to 'Back', cocktails_path, class: "btn btn-primary" %>
+  <%= link_to 'New Cocktail', new_cocktail_path(@cocktail.id), class: "btn btn-primary" %>
+</div>
