@@ -1,19 +1,24 @@
 class DosesController < ApplicationController
-  before_action :set_dose, only: [:show]
+
 
   def new
+    @cocktail = Cocktail.find(params[:cocktail_id])
     @dose = Dose.new
   end
 
   def create
 
+    #need to indentify the cocktails
+    #need to define the dose / need to make a new dose
+    # save this defined and created dose
+
+    @cocktail = Cocktail.find(params[:cocktail_id])
     @dose = Dose.new(dose_params)
-    @dose.cocktail_id = @cocktail.id 
 
     respond_to do |format|
       if @dose.save
-        format.html { redirect_to @dose, notice: 'Dose was successfully created.' }
-        format.json { render :show, status: :created, location: @dose }
+        format.html { redirect_to @cocktail, notice: 'Dose was successfully created.' }
+
       else
         format.html { render :new }
         format.json { render json: @dose.errors, status: :unprocessable_entity }
@@ -22,18 +27,14 @@ class DosesController < ApplicationController
   end
 
   def destroy
+    @dose = Dose.find(params[:id])
     @dose.destroy
     respond_to do |format|
-      format.html { redirect_to doses_url, notice: 'Dose was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to @dose.cocktail, notice: 'Dose was successfully destroyed.' }
     end
   end
 
   private
-
-  def set_cocktail
-    @dose = Dose.find(params[:id])
-  end
 
   def dose_params
     params.require(:dose).permit(:description, :ingredient_id, :cocktail_id)
